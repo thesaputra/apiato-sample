@@ -30,13 +30,11 @@ class JWTLoginAction extends Action
       
       if ($token)
       {
-          $tnc = ($this->current()->is_terms_condition == false) ? false : true;
-
           $user = $this->current();
           $user->last_login  = date("Y-m-d H:i:s");
           $user->save();
 
-          return $this->respondWithToken($token, $tnc);
+          return $this->respondWithToken($token);
       }
       else 
       {

@@ -43,13 +43,12 @@ trait JWTUserAuth
    * @param $token
    * @return array
    */
-  protected function respondWithToken($token, $tnc)
+  protected function respondWithToken($token)
   {
     return [
       'access_token' => $token,
       'token_type' => 'Bearer',
-      'expires_in' => $this->guard()->factory()->getTTL() * 60,
-      'tnc' => $tnc,
+      'expires_in' => $this->guard()->factory()->getTTL() * 60
     ];
   }
 

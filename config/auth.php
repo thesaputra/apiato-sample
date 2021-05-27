@@ -14,8 +14,8 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
-        'passwords' => 'users',
+      'guard' => 'admins',
+      'passwords' => 'admins',
     ],
 
     /*
@@ -36,15 +36,20 @@ return [
     */
 
     'guards' => [
+
         'web' => [
-            'driver' => 'session',
-            'provider' => 'users',
+          'driver' => 'session',
+          'provider' => 'users',
         ],
 
         'api' => [
-            'driver' => 'passport',
+            'driver' => 'jwt',
             'provider' => 'users',
-            'hash' => false,
+        ],
+
+        'admins' => [
+            'driver' => 'jwt',
+            'provider' => 'admins',
         ],
     ],
 
@@ -71,10 +76,10 @@ return [
             'model'  => env('USER_NAMESPACE') . User::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+         'admins' => [
+             'driver' => 'eloquent',
+             'model'  => \App\Containers\Admin\Models\Admin::class,
+         ],
     ],
 
     /*
@@ -98,6 +103,12 @@ return [
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,
+        ],
+        'admins' => [
+          'provider' => 'admins',
+          'table' => 'password_resets',
+          'expire' => 60,
+          'throttle' => 60,
         ],
     ],
 
