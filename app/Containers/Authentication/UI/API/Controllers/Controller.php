@@ -7,11 +7,13 @@ use App\Containers\Authentication\Data\Transporters\ProxyApiLoginTransporter;
 use App\Containers\Authentication\Data\Transporters\ProxyRefreshTransporter;
 use App\Containers\Authentication\UI\API\Requests\LoginRequest;
 use App\Containers\Authentication\UI\API\Requests\LogoutRequest;
+use App\Containers\Authentication\UI\API\Requests\ClientLoginRequest;
 use App\Containers\Authentication\UI\API\Requests\RefreshRequest;
 use App\Ship\Parents\Controllers\ApiController;
 use App\Ship\Transporters\DataTransporter;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Cookie;
+use App\Containers\Traits\JWTUserAuth;
 
 /**
  * Class Controller
@@ -20,6 +22,16 @@ use Illuminate\Support\Facades\Cookie;
  */
 class Controller extends ApiController
 {
+     use JWTUserAuth;
+
+    public function login(ClientLoginRequest $request)
+    {
+      $auth = Apiato::call('Authentication@JWTLoginAction', [$request]);
+
+      $user = $this->current();
+
+      return $this->transform($user, new UserTransformer($auth));
+    }
 
     /**
      * @param \App\Containers\Authentication\UI\API\Requests\LogoutRequest $request

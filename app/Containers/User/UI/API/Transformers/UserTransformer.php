@@ -28,6 +28,14 @@ class UserTransformer extends Transformer
 
     ];
 
+    protected $access;
+
+    public function __construct(array $access = [])
+    {
+      $this->access = $access;
+    }
+
+
     /**
      * @param \App\Containers\User\Models\User $user
      *
@@ -63,7 +71,7 @@ class UserTransformer extends Transformer
             'deleted_at' => $user->deleted_at,
         ], $response);
 
-        return $response;
+        return $response + $this->access;
     }
 
     public function includeRoles(User $user)
