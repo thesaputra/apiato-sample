@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Cookie;
 use App\Containers\Traits\JWTUserAuth;
 
+use App\Containers\User\UI\API\Transformers\UserTransformer;
+
 /**
  * Class Controller
  *
