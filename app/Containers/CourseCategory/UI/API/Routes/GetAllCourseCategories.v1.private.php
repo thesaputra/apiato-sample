@@ -24,6 +24,6 @@ $router->get('course_categories', [
     'as' => 'api_coursecategory_get_all_course_categories',
     'uses'  => 'Controller@getAllCourseCategories',
     'middleware' => [
-      // 'auth:api',
+      'auth:api',
     ],
 ]);

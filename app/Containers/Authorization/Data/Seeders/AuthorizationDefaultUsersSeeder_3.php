@@ -26,7 +26,8 @@ class AuthorizationDefaultUsersSeeder_3 extends Seeder
             'admin',
             'Super Admin',
             true
-        ]);
+        ])->assignRole(Apiato::call('Authorization@FindRoleTask', ['api']));
+    
 
         // ...
 

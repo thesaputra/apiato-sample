@@ -32,7 +32,7 @@ class Controller extends ApiController
      */
     public function registerUser(RegisterUserRequest $request)
     {
-        $user = Apiato::call('User@RegisterUserAction', [new DataTransporter($request)]);
+        $user = Apiato::call('User@RegisterUserAction', [new DataTransporter($request), $request->header('RoleId'), $request->header('UserType')]);
 
         return $this->transform($user, UserTransformer::class);
     }

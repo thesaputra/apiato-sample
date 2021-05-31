@@ -3,9 +3,12 @@
 namespace App\Containers\CourseCategory\Models;
 
 use App\Ship\Parents\Models\Model;
+use App\Containers\Traits\Uuid;
 
 class CourseCategory extends Model
 {
+    use Uuid;
+
     protected $fillable = [
         'name'
     ];
@@ -19,7 +22,7 @@ class CourseCategory extends Model
     ];
 
     protected $casts = [
-
+        'id' => 'uuid'
     ];
 
     protected $dates = [

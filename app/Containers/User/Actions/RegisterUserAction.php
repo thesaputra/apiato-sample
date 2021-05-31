@@ -27,21 +27,30 @@ class RegisterUserAction extends Action
      *
      * @return  \App\Containers\User\Models\User
      */
-    public function run(DataTransporter $data): User
+    public function run(DataTransporter $data, $role_id, $user_type): User
     {
-        // create user record in the database and return it.
-        $user = Apiato::call('User@CreateUserByCredentialsTask', [
-            $isClient = true,
-            $data->email,
-            $data->password,
-            $data->name,
-            $data->gender,
-            $data->birth
-        ]);
+        $assignRoles = [];
+        if ($user_type == 'admin')
+        {
+            $user = Apiato::call('User@CreateUserByCredentialsTask', [
+                $data->email,
+                $data->password,
+                $data->name,
+                $data->gender,
+                $data->birth,
+                $isClient = true
+            ]);
+        }
+        
 
-        Mail::send(new UserRegisteredMail($user));
+        $assignRole = Apiato::call('Authorization@FindRoleTask', [$role_id]);
+        array_push($assignRoles, $assignRole);
+        
+        $user = Apiato::call('Authorization@AssignUserToRoleTask', [$user, $assignRoles]);
 
-        Notification::send($user, new UserRegisteredNotification($user));
+        // Mail::send(new UserRegisteredMail($user));
+
+        // Notification::send($user, new UserRegisteredNotification($user));
 
         App::make(Dispatcher::class)->dispatch(New UserRegisteredEvent($user));
 
