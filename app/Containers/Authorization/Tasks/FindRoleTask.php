@@ -29,6 +29,7 @@ class FindRoleTask extends Task
      */
     public function run($roleNameOrId)
     {
+        // dd($roleNameOrId);
         try {
             $query = ['id' => $roleNameOrId];
             
