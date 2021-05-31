@@ -31,7 +31,6 @@ class JWTLoginAction extends Action
       if ($token)
       {
           $user = $this->current();
-          $user->last_login  = date("Y-m-d H:i:s");
           $user->save();
 
           return $this->respondWithToken($token);
