@@ -7,9 +7,6 @@ use App\Containers\Account\Models\UserAccount;
 use App\Containers\Authorization\Models\Role;
 use App\Containers\User\Models\UserType;
 use App\Containers\Authorization\Traits\AuthorizationTrait;
-use App\Containers\Payment\Contracts\ChargeableInterface;
-use App\Containers\Payment\Models\PaymentAccount;
-use App\Containers\Payment\Traits\ChargeableTrait;
 use App\Containers\Traits\Uuid;
 use App\Ship\Parents\Models\UserModel;
 use Illuminate\Notifications\Notifiable;
@@ -20,10 +17,8 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  *
  * @author Mahmoud Zalt <mahmoud@zalt.me>
  */
-class User extends UserModel implements ChargeableInterface, JWTSubject
+class User extends UserModel implements JWTSubject
 {
-
-    use ChargeableTrait;
     use AuthorizationTrait;
     use Notifiable;
     use Uuid;
@@ -48,35 +43,14 @@ class User extends UserModel implements ChargeableInterface, JWTSubject
      */
     protected $fillable = [
         'name',
-        'username',
         'email',
-        'phone',
         'password',
-        'temporary_password',
-        'device',
-        'platform',
+        'confirmed',
         'gender',
         'birth',
-        'address',
-        'postal_code',
-        'social_provider',
-        'social_token',
-        'social_refresh_token',
-        'social_expires_in',
-        'social_token_secret',
-        'social_id',
-        'social_avatar',
-        'social_avatar_original',
-        'social_nickname',
-        'confirmed',
-        'is_client',
-        'user_type_id',
-        'last_login',
-        'deleted_at',
-        'is_terms_condition',
-        'status',
-        'string_activation',
-        'reverse_status',
+        'device',
+        'platform',
+        'is_client'
     ];
 
     protected $casts = [

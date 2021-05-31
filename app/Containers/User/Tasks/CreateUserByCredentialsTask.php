@@ -36,12 +36,9 @@ class CreateUserByCredentialsTask extends Task
      * @throws  CreateResourceFailedException
      */
     public function run(
-        bool $isClient = true,
         string $email,
         string $password,
-        string $name = null,
-        string $gender = null,
-        string $birth = null
+        string $name = null
     ): User {
 
         try {
@@ -49,13 +46,11 @@ class CreateUserByCredentialsTask extends Task
             $user = $this->repository->create([
                 'password'  => Hash::make($password),
                 'email'     => $email,
-                'name'      => $name,
-                'gender'    => $gender,
-                'birth'     => $birth,
-                'is_client' => $isClient,
+                'name'      => $name
             ]);
 
         } catch (Exception $e) {
+            // dd($e);
             throw (new CreateResourceFailedException())->debug($e);
         }
 

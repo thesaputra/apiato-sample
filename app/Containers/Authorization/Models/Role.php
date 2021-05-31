@@ -4,6 +4,7 @@ namespace App\Containers\Authorization\Models;
 
 use Apiato\Core\Traits\HashIdTrait;
 use Apiato\Core\Traits\HasResourceKeyTrait;
+use App\Containers\Traits\Uuid;
 use Spatie\Permission\Models\Role as SpatieRole;
 
 /**
@@ -16,20 +17,17 @@ class Role extends SpatieRole
 
     use HashIdTrait;
     use HasResourceKeyTrait;
+    use Uuid;
 
-    protected $guard_name = 'web';
+    protected $guard_name = 'api';
 
+    public $incrementing = false;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'name',
         'guard_name',
         'display_name',
         'description',
-        'level',
+        'level'
     ];
 }
