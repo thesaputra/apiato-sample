@@ -22,7 +22,8 @@ class CourseCategory extends Model
     ];
 
     protected $casts = [
-        'id' => 'uuid'
+        // 'id' => 'Uuid',
+        // 'real_id' => 'string'
     ];
 
     protected $dates = [

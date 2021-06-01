@@ -47,12 +47,12 @@ class RegisterUserAction extends Action
         array_push($assignRoles, $assignRole);
         
         $user = Apiato::call('Authorization@AssignUserToRoleTask', [$user, $assignRoles]);
-
+        
         // Mail::send(new UserRegisteredMail($user));
 
         // Notification::send($user, new UserRegisteredNotification($user));
 
-        App::make(Dispatcher::class)->dispatch(New UserRegisteredEvent($user));
+        // App::make(Dispatcher::class)->dispatch(New UserRegisteredEvent($user));
 
         return $user;
     }

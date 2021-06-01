@@ -19,6 +19,7 @@ class FindCourseCategoryByIdTask extends Task
 
     public function run($id)
     {
+        // dd($id);
         try {
             return $this->repository->find($id);
         }
